@@ -1,6 +1,6 @@
 # pree_bill
 
-A new Flutter project.
+Pree Bill Project.
 
 ## Getting Started
 
