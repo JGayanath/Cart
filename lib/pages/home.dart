@@ -57,6 +57,7 @@ class _Pree_BillState extends State<Pree_Bill> {
   late double after_add_price;
   double totalHome = 0.0;
   bool submit = false;
+  var selected;
   List<String> input_Price = []; // price list varible
   List<String> input_Total = []; // price list varible
   List<double> input_Quantity = []; // price list varible
@@ -202,6 +203,7 @@ class _Pree_BillState extends State<Pree_Bill> {
         input_Quantity.clear();
         input_Total.clear();
         status.clear();
+        Items.items.clear();
       });
     }
 
@@ -221,8 +223,7 @@ class _Pree_BillState extends State<Pree_Bill> {
       });
     }
 
-    var selected;
-    List selectedList;
+
 
     return SafeArea(
       top: false,
@@ -421,6 +422,7 @@ class _Pree_BillState extends State<Pree_Bill> {
                                   width: 250,
                                   child:
                                   CustomSearchableDropDown(
+                                    primaryColor: Colors.indigoAccent[700],
                                     labelStyle: TextStyle(
                                       fontSize: 20.0,
                                       color: Colors.black,
@@ -428,7 +430,7 @@ class _Pree_BillState extends State<Pree_Bill> {
                                     labelAlign: TextAlign.center,
                                     showClearButton: false,
                                     items: Items.items,
-                                    label: 'Select Name',
+                                    label: 'Select Item',
                                     dropDownMenuItems: Items.items?.map((item) {
                                       return item;
                                     })?.toList() ??
