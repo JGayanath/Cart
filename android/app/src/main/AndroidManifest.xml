@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.pree_bill.jsoftapp.pree_bill">
    <application
-        android:label="Pree_Bill"
+        android:label="Pree Bill"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

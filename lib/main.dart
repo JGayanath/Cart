@@ -1,22 +1,17 @@
 
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
-import 'package:pree_bill/pages/home.dart';
-import 'package:pree_bill/pages/select.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:pree_bill/pages/model.dart';
+import 'package:pree_bill/pages/splash.dart';
+import 'package:provider/provider.dart';
 
 
 void main() {
   runApp(
-    DevicePreview(
-      enabled: true,
-      tools: [
-        ...DevicePreview.defaultTools,
 
-      ],
-      builder: (context) => const MyApp(),
-    ),
+    ChangeNotifierProvider(create: (context)=> Model() , child:  DevicePreview(
+      builder: (context) => MyApp(), // Wrap your app
+    ),),
   );
 }
 
@@ -28,24 +23,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  bool isloader=false; //change screen
-
-  void initState() {
-    super.initState();
-    _next_Screen();
-  }
-
-  Future<void> _next_Screen()async{ // change screen
-    final prefs = await SharedPreferences.getInstance();
-    //_currency_code = prefs.getString('currency_key').toString();
-    setState(() {
-      if (prefs.getString('currency_key')!.isEmpty) {
-        isloader = false;
-      } else {
-        isloader = true;
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +32,7 @@ class _MyAppState extends State<MyApp> {
         primaryColor: Colors.indigoAccent[700],
       ),
       title: 'Pree Bill',
-      home: (isloader) ? Pree_Bill() : Select(),
+      home: Splash_Screen(),
     );
   }
 }
