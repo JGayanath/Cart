@@ -1,8 +1,8 @@
 
-class Items {
 
-  static List<String> items = [
-    "Asparagus","Beets","Cauliflower","Carrots","Celery","Corn","Cucumbers","Greens","Lettuce","Mushrooms","Onions","Peppers","Potatoes","Spinach","Sprouts","Squash","Tomatoes","Zucchini",
+class Items {
+  static List items = [
+    "Empty","Asparagus","Beets","Cauliflower","Carrots","Celery","Corn","Cucumbers","Greens","Lettuce","Mushrooms","Onions","Peppers","Potatoes","Spinach","Sprouts","Squash","Tomatoes","Zucchini",
     "Apples","Avocado","Bananas","Berries","Cherries","Grapes","Kiwis","Limes","Melons","Oranges","Peaches","Pears","Plums","Applesauce","Baked beans","Beans","Carrots","Corn",
     "Beans","Mixed fruit","Mixed veggies","Olives","Pasta sauce","Pickles","Refried beans","Tuna,Soups","Tomatoes",
     "BBQ sauce","Hot sauce","Salsa","Soy sauce","Steak sauce","Syrup","Worcestershire sauce",
@@ -48,5 +48,4 @@ class Items {
     "Burger night","Chili night","Pizza night","Spaghetti night","Taco night",
   ];
 
-  userAsStringByName() {}
 }

@@ -29,9 +29,6 @@ class _Pree_BillState extends State<Pree_Bill> {
 
   TextEditingController item_Price = TextEditingController();
   TextEditingController item_Total = TextEditingController();
-  TextEditingController _controller = TextEditingController();
-
-  //TextEditingController _textFieldController = TextEditingController();
 
   @override
   void initState() {
@@ -57,11 +54,11 @@ class _Pree_BillState extends State<Pree_Bill> {
   late double after_add_price;
   double totalHome = 0.0;
   bool submit = false;
-  var selected;
+  var selected; // searchdropdown variable
   List<String> input_Price = []; // price list varible
   List<String> input_Total = []; // price list varible
   List<double> input_Quantity = []; // price list varible
-  List<String> status = []; // add or deduction
+  late List<String> itemSelects = []; // selected your items
 
   void currency_assign() async {
     final prefs = await SharedPreferences.getInstance();
@@ -88,8 +85,6 @@ class _Pree_BillState extends State<Pree_Bill> {
     )); //statusbar color change
 
     final provider = Provider.of<Model>(context);
-    final itemsModel = Items();
-
     item_Total.text = provider.sumTotal.toStringAsFixed(2);
 
     void _navigatetoPrice_list(BuildContext context) {
@@ -99,8 +94,9 @@ class _Pree_BillState extends State<Pree_Bill> {
                   price: input_Price,
                   total: input_Total,
                   quantity: input_Quantity,
-                  status: status,
-                  totalHome: totalHome)));
+                  totalHome: totalHome,
+                  slectedItems: itemSelects,
+              )));
     }
 
     Future<void> _currency_select() async {
@@ -123,8 +119,6 @@ class _Pree_BillState extends State<Pree_Bill> {
     }
 
     void get_price() {
-      // Calculate Price
-      //double current_input_Price = double.parse(item_Price.text);
       setState(() {
         double current_price1 = double.parse(item_Price.text);
         if (quantity == 0.0 || current_price1 == 0.00) {
@@ -149,47 +143,10 @@ class _Pree_BillState extends State<Pree_Bill> {
           quantity = 0;
           input_Total
               .add(after_add_price.toStringAsFixed(2)); // price list varible
-          status.add("Collect");
+          itemSelects.add(selected);
+          //itemSelects.add((selected==null)?"Item":selected);
+          //selected="Item";
         }
-      });
-    }
-
-    void deduction() {
-      // need validation more
-      setState(() {
-        double current_quantity = quantity;
-        double current_price3 = double.parse(item_Price.text);
-        double current_total_value = double.parse(item_Total.text);
-        double current_total = current_price3 * current_quantity;
-        if (current_total_value >= 0 &&
-            current_quantity >= 0.5 &&
-            current_total <= current_total_value &&
-            current_price3 >= 0.1) {
-          provider.updateValue(current_total_value - current_total);
-          item_Total.text = (provider.sumTotal).toStringAsFixed(2);
-          input_Price.add(item_Price.text); // price list varible
-          input_Quantity.add(quantity); // price list varible
-          input_Total
-              .add(current_total.toStringAsFixed(2)); // price list varible
-          totalHome = double.parse(item_Total.text);
-          current_quantity = 0.00;
-          current_price3 = 0.00;
-          current_total_value = 0.00;
-          current_total = 0.00;
-          item_Price.text = "";
-          quantity = 0.0;
-          status.add("Deduction");
-        } else {
-          Fluttertoast.showToast(
-              msg: " Check your value",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 1,
-              backgroundColor: Colors.black,
-              textColor: Colors.white,
-              fontSize: 16.0);
-        }
-        ;
       });
     }
 
@@ -202,8 +159,7 @@ class _Pree_BillState extends State<Pree_Bill> {
         input_Price.clear();
         input_Quantity.clear();
         input_Total.clear();
-        status.clear();
-        Items.items.clear();
+       // status.clear();
       });
     }
 
@@ -222,8 +178,6 @@ class _Pree_BillState extends State<Pree_Bill> {
         }
       });
     }
-
-
 
     return SafeArea(
       top: false,
@@ -418,24 +372,25 @@ class _Pree_BillState extends State<Pree_Bill> {
                                         //controller: currency_filed,
                                       )),
                                 ),
-                                SizedBox(
-                                  width: 250,
+                                Container(
+                                  width:
+                                  MediaQuery
+                                      .of(context)
+                                      .size
+                                      .width * 0.6,
                                   child:
                                   CustomSearchableDropDown(
-                                    primaryColor: Colors.indigoAccent[700],
+                                    dropdownItemStyle: TextStyle(color: Colors.indigoAccent[700]),
+                                    menuPadding: EdgeInsets.symmetric(vertical: 16,horizontal: 8.0),
                                     labelStyle: TextStyle(
                                       fontSize: 20.0,
                                       color: Colors.black,
                                     ),
                                     labelAlign: TextAlign.center,
-                                    showClearButton: false,
                                     items: Items.items,
                                     label: 'Select Item',
-                                    dropDownMenuItems: Items.items?.map((item) {
-                                      return item;
-                                    })?.toList() ??
-                                        [],
-                                    onChanged: (value){
+                                    dropDownMenuItems: Items.items,
+                                    onChanged: (value) {
                                       if(value!=null)
                                       {
                                         selected = value.toString();
@@ -717,23 +672,8 @@ class _Pree_BillState extends State<Pree_Bill> {
                           const SizedBox(
                             height: 10.00,
                           ),
-                          TextButton(
-                            style: TextButton.styleFrom(
-                              padding: const EdgeInsets.all(16.0),
-                              primary: Colors.black,
-                              textStyle: const TextStyle(
-                                fontSize: 25,
-                              ),
-                            ),
-                            onPressed: () {
-                              deduction();
-                            },
-                            child: const Text(
-                              'Deduction',
-                              style: const TextStyle(
-                                  color: Colors.black54,
-                                  fontWeight: FontWeight.bold),
-                            ),
+                          SizedBox(
+                            height: 40,
                           ),
                           Align(
                             alignment: Alignment.bottomCenter,

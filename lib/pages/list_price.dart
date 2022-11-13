@@ -9,16 +9,16 @@ class Price_List extends StatefulWidget {
   List<String> price = [];
   List<String> total = [];
   List<double> quantity = [];
-  List<String> status = []; // add or deduction
+  List <String> slectedItems = [];
   late double totalHome;
-  String listOfSubs = "";
 
   Price_List(
       {required this.price,
       required this.total,
       required this.quantity,
-      required this.status,
-      required this.totalHome});
+      required this.totalHome,
+      required this.slectedItems
+      });
 
   @override
   State<Price_List> createState() => _Price_ListState();
@@ -58,33 +58,19 @@ class _Price_ListState extends State<Price_List> {
       setState(() {
         String getTotal = "";
         double checkMinusValue = 0; // plus or minus check value
-        if (widget.status.elementAt(index) == "Collect") {
+        if (checkMinusValue >= 0)  {
           widget.price.removeAt(index);
           widget.quantity.removeAt(index);
           getTotal = widget.total.removeAt(index);
-          widget.status.removeAt(index);
           checkMinusValue = widget.totalHome - double.parse(getTotal);
-          if (checkMinusValue >= 0) {
             provider.updateValue(checkMinusValue);
             widget.totalHome = provider.sumTotal;
-          } else {
-            provider.updateValue(0);
-            widget.totalHome = provider.sumTotal;
-          }
-        } else if (widget.status.elementAt(index) == "Deduction") {
-          widget.status.removeAt(index);
-          widget.status.add("Collect");
-          widget.listOfSubs = widget.total.elementAt(index);
-          provider
-              .updateValue(widget.totalHome + double.parse(widget.listOfSubs));
-          widget.totalHome = provider.sumTotal;
         }
       });
     }
 
     Future<void> _showMyDialog(index) async {
-      return (widget.status[index] == "Collect")
-          ? AwesomeDialog(
+      return AwesomeDialog(
               btnCancelColor: Colors.redAccent[700],
               btnOkText: "Remove",
               btnOkColor: Colors.indigoAccent[700],
@@ -93,29 +79,7 @@ class _Price_ListState extends State<Price_List> {
               dialogType: DialogType.warning,
               body: Center(
                 child: Text(
-                  "Do you want to Remove this item?",
-                  style: TextStyle(
-                      fontStyle: FontStyle.italic, fontWeight: FontWeight.bold),
-                ),
-              ),
-              btnCancelOnPress: () {
-                Navigator.of(context);
-              },
-              btnOkOnPress: () {
-                item_Delete(index);
-                Navigator.of(context);
-              },
-            ).show()
-          : AwesomeDialog(
-              btnOkText: "Collect",
-              btnCancelColor: Colors.redAccent[700],
-              btnOkColor: Colors.indigoAccent[700],
-              context: context,
-              animType: AnimType.scale,
-              dialogType: DialogType.success,
-              body: Center(
-                child: Text(
-                  "Do you want to Collect this item?",
+                  "Do you want to deduction this item?",
                   style: TextStyle(
                       fontStyle: FontStyle.italic, fontWeight: FontWeight.bold),
                 ),
@@ -140,7 +104,7 @@ class _Price_ListState extends State<Price_List> {
           backgroundColor: Colors.white,
           centerTitle: true,
           title: Text(
-            '${provider.sumTotal}',
+            'Price List',
             style: TextStyle(
                 color: Colors.black,
                 fontSize: 30.0,
@@ -156,6 +120,40 @@ class _Price_ListState extends State<Price_List> {
               color: Colors.black,
             ),
           ),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          items: [
+            BottomNavigationBarItem(
+                icon: IconButton(onPressed:(){
+                  Navigator.pop(context);
+                },icon:Icon(Icons.home,color:Colors.indigoAccent[700],)),
+              label: "",
+            ),
+            BottomNavigationBarItem(
+              icon: IconButton(onPressed:(){
+                AwesomeDialog(
+                  btnCancelColor: Colors.redAccent[700],
+                  btnOkText: "Ok",
+                  btnOkColor: Colors.indigoAccent[700],
+                  context: context,
+                  animType: AnimType.scale,
+                  dialogType: DialogType.success,
+                  body: Center(
+                    child: Text(
+                      "${_currency_homepage+" "+provider.sumTotal.toStringAsFixed(2)}",
+                      style: TextStyle(
+                          fontStyle: FontStyle.italic, fontWeight: FontWeight.bold,fontSize: 25.0),
+                    ),
+                  ),
+                  btnOkOnPress: () {
+                    Navigator.of(context);
+                  },
+                ).show();
+
+              },icon:Icon(Icons.info,color: Colors.indigoAccent[700],)),
+              label: "",
+            ),
+          ],
         ),
         body: Container(
           child: Padding(
@@ -196,11 +194,11 @@ class _Price_ListState extends State<Price_List> {
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.indigoAccent[700]),
-                                '${widget.status[index]}',
+                                '${widget.slectedItems[index]}',
                               ),
                             ],
                           ),
-                          SizedBox(height: 20.0),
+                          SizedBox(height: 5.0),
                           Row(
                             children: [
                               Container(
@@ -273,13 +271,8 @@ class _Price_ListState extends State<Price_List> {
                                           shape: BoxShape.circle,
                                           color: Colors.white,
                                         ),
-                                        child: IconButton(
-                                            icon: (widget.status[index] ==
-                                                    "Collect")
-                                                ? Icon(Icons.delete,
-                                                    color: Colors
-                                                        .indigoAccent[700])
-                                                : Icon(Icons.add,
+                                        child: IconButton( icon:
+                                            Icon(Icons.delete,
                                                     color: Colors
                                                         .indigoAccent[700]),
                                             onPressed: () {

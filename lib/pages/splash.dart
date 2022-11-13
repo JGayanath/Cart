@@ -32,7 +32,6 @@ class _Splash_ScreenState extends State<Splash_Screen> {
             FadeInUp(
               duration: Duration(seconds: 3),
                 child: Image.asset("assets/images/Pay_drow.png",width: size.width*0.5,height: size.height*0.5,)),
-
             FadeInDown(
               duration: Duration(seconds: 3),
               child: Text(
