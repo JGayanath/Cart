@@ -1,17 +1,17 @@
 
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
-import 'package:pree_bill/pages/model.dart';
-import 'package:pree_bill/pages/splash.dart';
+import 'package:pree_bill/model/model.dart';
+import 'package:pree_bill/screens/splash.dart';
+import 'package:pree_bill/utils/app_colors.dart';
 import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 
 
 void main() {
   runApp(
-
-    ChangeNotifierProvider(create: (context)=> Model() , child:  DevicePreview(
-      builder: (context) => MyApp(), // Wrap your app
-    ),),
+    ChangeNotifierProvider(create: (context)=> Model() , child:  MyApp(), // Wrap your app
+    ),
   );
 }
 
@@ -26,13 +26,17 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primaryColor: Colors.indigoAccent[700],
-      ),
-      title: 'Pree Bill',
-      home: Splash_Screen(),
+    return Sizer(
+      builder: (context, orientation, deviceType) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            primaryColor: AppColors.appColor,
+          ),
+          title: 'Pree Bill',
+          home: Splash_Screen(),
+        );
+      },
     );
   }
 }

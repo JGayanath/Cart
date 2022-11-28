@@ -1,15 +1,17 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:pree_bill/pages/model.dart';
+import 'package:pree_bill/model/model.dart';
+import 'package:pree_bill/utils/utils_functions.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sizer/sizer.dart';
 import 'home.dart';
 
 class Price_List extends StatefulWidget {
   List<String> price = [];
   List<String> total = [];
   List<double> quantity = [];
-  List <String> slectedItems = [];
+  List<String> slectedItems = [];
   late double totalHome;
 
   Price_List(
@@ -17,8 +19,7 @@ class Price_List extends StatefulWidget {
       required this.total,
       required this.quantity,
       required this.totalHome,
-      required this.slectedItems
-      });
+      required this.slectedItems});
 
   @override
   State<Price_List> createState() => _Price_ListState();
@@ -43,12 +44,6 @@ class _Price_ListState extends State<Price_List> {
     });
   }
 
-  void _navigatetoHome(BuildContext context) {
-    // navigate to home page
-    Navigator.of(context)
-        .pop(MaterialPageRoute(builder: (context) => Pree_Bill()));
-  }
-
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<Model>(context); // provider package object
@@ -58,40 +53,15 @@ class _Price_ListState extends State<Price_List> {
       setState(() {
         String getTotal = "";
         double checkMinusValue = 0; // plus or minus check value
-        if (checkMinusValue >= 0)  {
+        if (checkMinusValue >= 0) {
           widget.price.removeAt(index);
           widget.quantity.removeAt(index);
           getTotal = widget.total.removeAt(index);
           checkMinusValue = widget.totalHome - double.parse(getTotal);
-            provider.updateValue(checkMinusValue);
-            widget.totalHome = provider.sumTotal;
+          provider.updateValue(checkMinusValue);
+          widget.totalHome = provider.sumTotal;
         }
       });
-    }
-
-    Future<void> _showMyDialog(index) async {
-      return AwesomeDialog(
-              btnCancelColor: Colors.redAccent[700],
-              btnOkText: "Remove",
-              btnOkColor: Colors.indigoAccent[700],
-              context: context,
-              animType: AnimType.scale,
-              dialogType: DialogType.warning,
-              body: Center(
-                child: Text(
-                  "Do you want to deduction this item?",
-                  style: TextStyle(
-                      fontStyle: FontStyle.italic, fontWeight: FontWeight.bold),
-                ),
-              ),
-              btnCancelOnPress: () {
-                Navigator.of(context);
-              },
-              btnOkOnPress: () {
-                item_Delete(index);
-                Navigator.of(context);
-              },
-            ).show();
     }
 
     return SafeArea(
@@ -107,13 +77,13 @@ class _Price_ListState extends State<Price_List> {
             'Price List',
             style: TextStyle(
                 color: Colors.black,
-                fontSize: 30.0,
+                fontSize: 30.0.sp,
                 fontWeight: FontWeight.bold),
           ),
           elevation: 0,
           leading: IconButton(
             onPressed: () {
-              _navigatetoHome(context);
+              Utils_Functions.navigatePop(context);
             },
             icon: Icon(
               Icons.navigate_before_outlined,
@@ -124,52 +94,52 @@ class _Price_ListState extends State<Price_List> {
         bottomNavigationBar: BottomNavigationBar(
           items: [
             BottomNavigationBarItem(
-                icon: IconButton(onPressed:(){
-                  Navigator.pop(context);
-                },icon:Icon(Icons.home,color:Colors.indigoAccent[700],)),
+              icon: IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(
+                    Icons.home,
+                    color: Colors.indigoAccent[700],
+                    size: 30.0.sp,
+                  )),
               label: "",
             ),
             BottomNavigationBarItem(
-              icon: IconButton(onPressed:(){
-                AwesomeDialog(
-                  btnCancelColor: Colors.redAccent[700],
-                  btnOkText: "Ok",
-                  btnOkColor: Colors.indigoAccent[700],
-                  context: context,
-                  animType: AnimType.scale,
-                  dialogType: DialogType.success,
-                  body: Center(
-                    child: Text(
-                      "${_currency_homepage+" "+provider.sumTotal.toStringAsFixed(2)}",
-                      style: TextStyle(
-                          fontStyle: FontStyle.italic, fontWeight: FontWeight.bold,fontSize: 25.0),
-                    ),
-                  ),
-                  btnOkOnPress: () {
-                    Navigator.of(context);
+              icon: IconButton(
+                  onPressed: () {
+                    Utils_Functions.showMyDialog(
+                        context,
+                        "Ok",
+                        "Home",
+                        "${_currency_homepage + " " + provider.sumTotal.toStringAsFixed(2)}",
+                        DialogType.info,
+                        () => Navigator.of(context),() => Utils_Functions.navigatePop(context));
                   },
-                ).show();
-
-              },icon:Icon(Icons.info,color: Colors.indigoAccent[700],)),
+                  icon: Icon(
+                    Icons.info,
+                    color: Colors.indigoAccent[700],
+                    size: 30.0.sp,
+                  )),
               label: "",
             ),
           ],
         ),
         body: Container(
           child: Padding(
-            padding: EdgeInsets.all(10.0),
+            padding: EdgeInsets.symmetric(vertical: 2.h , horizontal: 2.w),
             child: ListView.builder(
               itemCount: widget.price.length,
               itemBuilder: (BuildContext ctx, index) => Container(
                 child: Card(
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25.0)),
+                      borderRadius: BorderRadius.circular(25.0.w)),
                   child: Container(
-                    padding: EdgeInsets.all(8.0),
+                    padding: EdgeInsets.symmetric(vertical: 2.h , horizontal: 2.w),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius:
-                          BorderRadius.circular(30), //border corner radius
+                          BorderRadius.circular(8.w), //border corner radius
                       boxShadow: [
                         BoxShadow(
                           color: Colors.indigo.shade100
@@ -191,31 +161,31 @@ class _Price_ListState extends State<Price_List> {
                             children: [
                               Text(
                                 style: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 20.sp,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.indigoAccent[700]),
                                 '${widget.slectedItems[index]}',
                               ),
                             ],
                           ),
-                          SizedBox(height: 5.0),
+                          SizedBox(height: 1.0.h),
                           Row(
                             children: [
                               Container(
-                                width: MediaQuery.of(context).size.width * 0.2,
+                                width: 20.w,
                                 child: Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
                                       "Price",
                                       style: TextStyle(
-                                          fontSize: 18,
+                                          fontSize: 18.sp,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.black),
                                     )),
                               ),
-                              SizedBox(width: 8.0),
+                              SizedBox(width: 1.0.w),
                               Container(
-                                width: MediaQuery.of(context).size.width * 0.3,
+                                width: 30.w,
                                 child: Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
@@ -223,82 +193,90 @@ class _Price_ListState extends State<Price_List> {
                                           " : " +
                                           widget.price[index],
                                       style: TextStyle(
-                                          fontSize: 15,
+                                          fontSize: 15.sp,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.black),
                                     )),
                               ),
                             ],
                           ),
-                          SizedBox(width: 10.0),
+                          SizedBox(width: 1.0.w),
                           Row(
                             children: [
                               Container(
-                                width: MediaQuery.of(context).size.width * 0.2,
+                                width: 20.w,
                                 child: Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
                                       "Qty:",
                                       style: TextStyle(
-                                          fontSize: 18,
+                                          fontSize: 18.sp,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.black),
                                     )),
                               ),
-                              SizedBox(width: 8.0),
+                              SizedBox(width: 1.0.w),
                               Container(
-                                width: MediaQuery.of(context).size.width * 0.2,
+                                width: 20.w,
                                 child: Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
                                       style: TextStyle(
-                                          fontSize: 15,
+                                          fontSize: 15.sp,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.black),
                                       '${widget.quantity[index]}',
                                     )),
                               ),
+                              SizedBox(width: 5.0.w),
                               Container(
-                                width: MediaQuery.of(context).size.width * 0.3,
+                                width: 30.w,
                                 child: Align(
                                     alignment: Alignment.centerRight,
                                     child: Container(
                                         decoration: BoxDecoration(
                                           border: Border.all(
-                                              width: 5.0,
+                                              width: 1.0.w,
                                               color:
                                                   Colors.indigoAccent.shade700),
                                           shape: BoxShape.circle,
                                           color: Colors.white,
                                         ),
-                                        child: IconButton( icon:
-                                            Icon(Icons.delete,
-                                                    color: Colors
-                                                        .indigoAccent[700]),
+                                        child: IconButton(
+                                            icon: Icon(Icons.delete,
+                                                size: 20.sp,
+                                                color:
+                                                    Colors.indigoAccent[700]),
                                             onPressed: () {
-                                              _showMyDialog(index);
+                                              Utils_Functions.showMyDialog(
+                                                  context,
+                                                  "Remove",
+                                                  "Cancel",
+                                                  "Do you want to deduction this item?",
+                                                  DialogType.warning,
+                                                  () => item_Delete(index),() => Navigator.of(context));
                                             }))),
                               ),
                             ],
                           ),
-                          SizedBox(width: 10.0),
+                          SizedBox(width: 1.0.w),
                           Row(
                             children: [
                               Container(
-                                width: MediaQuery.of(context).size.width * 0.2,
+                                width: 20.w,
                                 child: Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
                                       "Total",
                                       style: TextStyle(
                                           color: Colors.black,
-                                          fontSize: 18,
+                                          fontSize: 18.sp,
                                           fontWeight: FontWeight.bold),
                                     )),
                               ),
-                              SizedBox(width: 8.0),
+                              SizedBox(width: 1.w),
                               Container(
-                                width: MediaQuery.of(context).size.width * 0.3,
+                                width: 30.w,
                                 child: Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
@@ -306,7 +284,7 @@ class _Price_ListState extends State<Price_List> {
                                           " : " +
                                           widget.total[index],
                                       style: TextStyle(
-                                          fontSize: 15,
+                                          fontSize: 15.sp,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.black),
                                     )),
