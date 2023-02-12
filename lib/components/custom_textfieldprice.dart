@@ -29,7 +29,7 @@ class Custom_TextFieldPrice extends StatelessWidget {
       controller: item_Price,
       textAlign: TextAlign.center,
       style: TextStyle(
-        fontSize: 20.sp,
+        fontSize: 15.sp,
       ),
       keyboardType: TextInputType.number,
       cursorColor: Colors.indigoAccent[700],
@@ -46,14 +46,13 @@ class Custom_TextFieldPrice extends StatelessWidget {
         ),
         //labelText: 'Price',
         labelStyle: TextStyle(
-            fontSize: 25.sp,
+            fontSize: 15.sp,
             color: Colors.black,
-            fontWeight: FontWeight
-                .bold),
+            ),
         //label style//Icon(null),
         floatingLabelBehavior:
         FloatingLabelBehavior.always,
-        hintText: "Your Price",
+        hintText: "Price",
       ),
     );
   }

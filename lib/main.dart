@@ -1,6 +1,7 @@
 
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
+
 import 'package:pree_bill/model/model.dart';
 import 'package:pree_bill/screens/splash.dart';
 import 'package:pree_bill/utils/app_colors.dart';
@@ -10,8 +11,8 @@ import 'package:sizer/sizer.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(create: (context)=> Model() , child:  MyApp(), // Wrap your app
-    ),
+      ChangeNotifierProvider(create: (context)=> Model() , child:  MyApp()),
+
   );
 }
 
@@ -23,7 +24,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   @override
   Widget build(BuildContext context) {
     return Sizer(
@@ -33,7 +33,7 @@ class _MyAppState extends State<MyApp> {
           theme: ThemeData(
             primaryColor: AppColors.appColor,
           ),
-          title: 'Pree Bill',
+          title: 'Cart',
           home: Splash_Screen(),
         );
       },

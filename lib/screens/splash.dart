@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pree_bill/screens/home.dart';
 import 'package:pree_bill/utils/app_colors.dart';
+import 'package:pree_bill/utils/assets_image.dart';
 import 'package:pree_bill/utils/utils_functions.dart';
 import 'package:sizer/sizer.dart';
 
@@ -25,27 +26,42 @@ class _Splash_ScreenState extends State<Splash_Screen> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarIconBrightness: Brightness.dark,
-      statusBarColor: Colors.white,
+      statusBarColor: AppColors.appColor,
     ));
 
     return Scaffold(
+      backgroundColor:AppColors.appColor,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            FadeInUp(
-                duration: Duration(seconds: 3),
-                child: Image.asset(
-                  "assets/images/Pay_drow.png",
-                  width: 50.w,
-                  height: 50.h,
-                )),
+            Center(
+              child: Container(
+                width: 60.w,
+                height: 60.h,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Color(0xffFFFFFF).withOpacity(0.9),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Color(0xffFFFFFF).withOpacity(0.7),
+                        spreadRadius: 60.sp,
+                        blurRadius: 10.0,
+                        offset: Offset(3.0, 3.0)),
+                  ],
+                ),
+                child: FadeInRight(
+                  child: Image.asset(Assets_Image.cartProfile),
+                  delay: Duration(milliseconds: 1500),
+                ),
+              ),
+            ),
             FadeInDown(
               duration: Duration(seconds: 3),
               child: Text(
-                "Pree Bill",
-                style: TextStyle(fontSize: 35.sp, color: AppColors.appColor),
+                "Cart",
+                style: TextStyle(fontSize: 35.sp, color: Colors.white),
               ),
             ),
           ],

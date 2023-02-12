@@ -17,7 +17,10 @@ class Custom_TextFieldTotal extends StatelessWidget {
       controller: item_Total,
       textAlign: TextAlign.center,
       style: TextStyle(
-        fontSize: 25.0.sp,
+        fontSize: 22.0.sp,
+        color: Colors.black,
+          fontWeight: FontWeight
+              .bold
       ),
       keyboardType: TextInputType.none,
       decoration: InputDecoration(
@@ -31,17 +34,6 @@ class Custom_TextFieldTotal extends StatelessWidget {
           borderRadius:
           BorderRadius.circular(25.7.w),//------------------------------------------------------------------------------------------------
         ),
-        //labelText: "Total",
-        labelStyle: TextStyle(
-            fontSize: 20.sp,
-            color: Colors.black,
-            fontWeight: FontWeight
-                .bold),
-        //label style
-        prefixIcon: null,
-        //Icon(null),
-        floatingLabelBehavior:
-        FloatingLabelBehavior.always,
       ),
     );
   }

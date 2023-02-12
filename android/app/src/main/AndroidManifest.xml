@@ -2,7 +2,7 @@
     package="com.pree_bill.jsoftapp.pree_bill">
     <uses-permission android:name="android.permission.CAMERA" />
    <application
-        android:label="Pree Bill"
+        android:label="Cart"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

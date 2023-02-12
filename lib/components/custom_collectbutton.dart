@@ -24,7 +24,7 @@ class Custom_CollectButton extends StatelessWidget {
         ),
         child: Align(
           alignment: Alignment.center,
-            child: Text("Collect",style: TextStyle(fontSize: 25.0.sp,color: Colors.white,fontWeight: FontWeight.bold),)),
+            child: Text("Add to cart",style: TextStyle(fontSize: 20.0.sp,color: Colors.white,fontWeight: FontWeight.bold),)),
       ),
     );
   }

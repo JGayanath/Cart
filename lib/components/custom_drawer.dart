@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:animate_do/animate_do.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:pree_bill/components/custom_text.dart';
 import 'package:pree_bill/utils/app_colors.dart';
@@ -53,30 +55,46 @@ class Custom_Drawer extends StatelessWidget {
           ),
           Column(
             children: [
-              DrawerHeader(
-                child: Row(
-                  children: [
-                    CircleAvatar(
-                      backgroundColor: Colors.white,
-                      backgroundImage: AssetImage(
-                          Assets_Image.droaweImage),
-                      radius: 12.w,
-                    ),
-                    SizedBox(
-                      width: 4.w,
-                    ),
-                    Custom_Text(
-                        text: "Pree Bill",
-                        fontSize: 25.0.sp,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black)
-                  ],
+              Container(
+                height: 30.h,
+                child: DrawerHeader(
+                  decoration: BoxDecoration(
+                    color: AppColors.appColor,
+                  ),
+                  child: Row(
+                    children: [
+                      Container(
+                          width: 30.w,
+                          height: 30.h,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Color(0xffFFFFFF).withOpacity(0.9),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Color(0xffFFFFFF).withOpacity(0.8),
+                                  spreadRadius: 8.5,
+                                  blurRadius: 10.0,
+                                  offset: Offset(3.0, 3.0)),
+                            ],
+                          ),
+                          child: Image.asset(Assets_Image.cartProfile)),
+                      SizedBox(
+                        width: 10.w,
+                      ),
+                      Custom_Text(
+                          text: "Cart",
+                          fontSize: 20.0.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black)
+                    ],
+                  ),
                 ),
               ),
               Column(
                 children: [
                   SizedBox(
-                    height: 7.0.h,
+                    height: 4.0.h,
                   ),
                   ListTile(
                     title: Row(
@@ -84,16 +102,16 @@ class Custom_Drawer extends StatelessWidget {
                         Icon(
                           Icons.currency_exchange,
                           color: AppColors.appColor,
-                          size: 30.0.sp,
+                          size: 22.0.sp,
                         ),
                         SizedBox(
                           width: 7.0.w,
                         ),
                         Custom_Text(
-                            text: "Change Currency",
-                            fontSize: 20.sp,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold),
+                          text: "Change Currency",
+                          fontSize: 18.sp,
+                          color: Colors.black,
+                        ),
                       ],
                     ),
                     onTap: () {
@@ -110,16 +128,16 @@ class Custom_Drawer extends StatelessWidget {
                         Icon(
                           Icons.home,
                           color: AppColors.appColor,
-                          size: 30.0.sp,
+                          size: 22.0.sp,
                         ),
                         SizedBox(
                           width: 7.0.w,
                         ),
                         Custom_Text(
-                            text: "Home",
-                            fontSize: 20.sp,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold),
+                          text: "Home",
+                          fontSize: 18.sp,
+                          color: Colors.black,
+                        ),
                       ],
                     ),
                     onTap: () {
@@ -135,20 +153,85 @@ class Custom_Drawer extends StatelessWidget {
                         Icon(
                           Icons.info,
                           color: AppColors.appColor,
-                          size: 30.sp,
+                          size: 22.sp,
                         ),
                         SizedBox(
                           width: 7.w,
                         ),
                         Custom_Text(
-                            text: "About",
-                            fontSize: 20.0.sp,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold)
+                          text: "About",
+                          fontSize: 18.0.sp,
+                          color: Colors.black,
+                        )
                       ],
                     ),
                     onTap: () {
-                      //Navigator.pop(context);
+                      AwesomeDialog(
+                        btnOkText: "Ok",
+                        btnOkColor: Colors.indigoAccent[700],
+                        context: context,
+                        animType: AnimType.scale,
+                        dialogType: DialogType.info,
+                        body: Container(
+                          padding: EdgeInsets.all(10.sp),
+                          child: Text(
+                            "This app is useful for bill calculation while purchasing goods.",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 12.sp,
+                                fontStyle: FontStyle.italic,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        btnOkOnPress: () {
+                          Utils_Functions.navigatePop(context);
+                        },
+                      ).show();
+                    },
+                  ),
+                  SizedBox(
+                    height: 5.0.h,
+                  ),
+                  ListTile(
+                    title: Row(
+                      children: [
+                        Icon(
+                          Icons.contact_support,
+                          color: AppColors.appColor,
+                          size: 22.sp,
+                        ),
+                        SizedBox(
+                          width: 7.w,
+                        ),
+                        Custom_Text(
+                          text: "Contact Us",
+                          fontSize: 18.0.sp,
+                          color: Colors.black,
+                        ),
+                      ],
+                    ),
+                    onTap: () {
+                      AwesomeDialog(
+                        btnOkText: "Ok",
+                        btnOkColor: Colors.indigoAccent[700],
+                        context: context,
+                        animType: AnimType.scale,
+                        dialogType: DialogType.info,
+                        body: Container(
+                          padding: EdgeInsets.all(10),
+                          child: Text(
+                            "janakagayanath@gmail.com",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 12.sp,
+                                fontStyle: FontStyle.italic,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        btnOkOnPress: () {
+                          Utils_Functions.navigatePop(context);
+                        },
+                      ).show();
                     },
                   ),
                 ],

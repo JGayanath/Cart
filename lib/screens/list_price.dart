@@ -1,6 +1,8 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pree_bill/model/model.dart';
+import 'package:pree_bill/utils/app_colors.dart';
 import 'package:pree_bill/utils/utils_functions.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -46,6 +48,12 @@ class _Price_ListState extends State<Price_List> {
 
   @override
   Widget build(BuildContext context) {
+
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarIconBrightness: Brightness.dark,
+      statusBarColor: Colors.white,
+    ));
+
     final provider = Provider.of<Model>(context); // provider package object
 
     void item_Delete(index) {
@@ -55,6 +63,7 @@ class _Price_ListState extends State<Price_List> {
         double checkMinusValue = 0; // plus or minus check value
         if (checkMinusValue >= 0) {
           widget.price.removeAt(index);
+          widget.slectedItems.removeAt(index);
           widget.quantity.removeAt(index);
           getTotal = widget.total.removeAt(index);
           checkMinusValue = widget.totalHome - double.parse(getTotal);
@@ -63,21 +72,16 @@ class _Price_ListState extends State<Price_List> {
         }
       });
     }
-
     return SafeArea(
-      top: false,
-      left: false,
-      bottom: false,
-      right: false,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
           centerTitle: true,
           title: Text(
-            'Price List',
+            'Cart items',
             style: TextStyle(
                 color: Colors.black,
-                fontSize: 30.0.sp,
+                fontSize: 25.0.sp,
                 fontWeight: FontWeight.bold),
           ),
           elevation: 0,
@@ -101,7 +105,7 @@ class _Price_ListState extends State<Price_List> {
                   icon: Icon(
                     Icons.home,
                     color: Colors.indigoAccent[700],
-                    size: 30.0.sp,
+                    size: 25.0.sp,
                   )),
               label: "",
             ),
@@ -112,14 +116,14 @@ class _Price_ListState extends State<Price_List> {
                         context,
                         "Ok",
                         "Home",
-                        "${_currency_homepage + " " + provider.sumTotal.toStringAsFixed(2)}",
+                        "Total Price:  ${_currency_homepage + " " + provider.sumTotal.toStringAsFixed(2)}",
                         DialogType.info,
                         () => Navigator.of(context),() => Utils_Functions.navigatePop(context));
                   },
                   icon: Icon(
                     Icons.info,
                     color: Colors.indigoAccent[700],
-                    size: 30.0.sp,
+                    size: 25.0.sp,
                   )),
               label: "",
             ),
@@ -161,7 +165,17 @@ class _Price_ListState extends State<Price_List> {
                             children: [
                               Text(
                                 style: TextStyle(
-                                    fontSize: 20.sp,
+                                    overflow: TextOverflow.ellipsis,
+                                    fontSize: 15.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.indigoAccent[700]),
+                                '${index+1}',
+                              ),
+                              SizedBox(width: 3.0.w),
+                              Text(
+                                style: TextStyle(
+                                  overflow: TextOverflow.ellipsis,
+                                    fontSize: 15.sp,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.indigoAccent[700]),
                                 '${widget.slectedItems[index]}',
@@ -172,20 +186,20 @@ class _Price_ListState extends State<Price_List> {
                           Row(
                             children: [
                               Container(
-                                width: 20.w,
+                                width: 15.w,
                                 child: Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
                                       "Price",
                                       style: TextStyle(
-                                          fontSize: 18.sp,
+                                          fontSize: 12.sp,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.black),
                                     )),
                               ),
-                              SizedBox(width: 1.0.w),
+                              //SizedBox(width: 1.0.w),
                               Container(
-                                width: 30.w,
+                                width: 60.w,
                                 child: Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
@@ -193,36 +207,38 @@ class _Price_ListState extends State<Price_List> {
                                           " : " +
                                           widget.price[index],
                                       style: TextStyle(
-                                          fontSize: 15.sp,
+                                        overflow: TextOverflow.ellipsis,
+                                          fontSize: 10.sp,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.black),
                                     )),
                               ),
                             ],
                           ),
-                          SizedBox(width: 1.0.w),
+                          //SizedBox(width: 1.0.w),
                           Row(
                             children: [
                               Container(
-                                width: 20.w,
+                                width: 15.w,
                                 child: Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
                                       "Qty:",
                                       style: TextStyle(
-                                          fontSize: 18.sp,
+                                          fontSize: 12.sp,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.black),
                                     )),
                               ),
                               SizedBox(width: 1.0.w),
                               Container(
-                                width: 20.w,
+                                width: 40.w,
                                 child: Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
                                       style: TextStyle(
-                                          fontSize: 15.sp,
+                                          overflow: TextOverflow.ellipsis,
+                                          fontSize: 10.sp,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.black),
                                       '${widget.quantity[index]}',
@@ -230,7 +246,7 @@ class _Price_ListState extends State<Price_List> {
                               ),
                               SizedBox(width: 5.0.w),
                               Container(
-                                width: 30.w,
+                                width: 20.w,
                                 child: Align(
                                     alignment: Alignment.centerRight,
                                     child: Container(
@@ -243,10 +259,10 @@ class _Price_ListState extends State<Price_List> {
                                           color: Colors.white,
                                         ),
                                         child: IconButton(
-                                            icon: Icon(Icons.delete,
-                                                size: 20.sp,
+                                            icon: Icon(Icons.delete_forever_outlined,
+                                                size: 15.sp,
                                                 color:
-                                                    Colors.indigoAccent[700]),
+                                                Color(0xffFF0000)),
                                             onPressed: () {
                                               Utils_Functions.showMyDialog(
                                                   context,
@@ -259,24 +275,24 @@ class _Price_ListState extends State<Price_List> {
                               ),
                             ],
                           ),
-                          SizedBox(width: 1.0.w),
+                          //SizedBox(width: 1.0.w),
                           Row(
                             children: [
                               Container(
-                                width: 20.w,
+                                width: 15.w,
                                 child: Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
                                       "Total",
                                       style: TextStyle(
                                           color: Colors.black,
-                                          fontSize: 18.sp,
+                                          fontSize: 12.sp,
                                           fontWeight: FontWeight.bold),
                                     )),
                               ),
                               SizedBox(width: 1.w),
                               Container(
-                                width: 30.w,
+                                width: 60.w,
                                 child: Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
@@ -284,7 +300,8 @@ class _Price_ListState extends State<Price_List> {
                                           " : " +
                                           widget.total[index],
                                       style: TextStyle(
-                                          fontSize: 15.sp,
+                                          overflow: TextOverflow.ellipsis,
+                                          fontSize: 10.sp,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.black),
                                     )),
