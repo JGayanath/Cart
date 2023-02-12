@@ -86,7 +86,7 @@ class Custom_Drawer extends StatelessWidget {
                           text: "Cart",
                           fontSize: 20.0.sp,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black)
+                          color: Colors.white)
                     ],
                   ),
                 ),
@@ -102,14 +102,14 @@ class Custom_Drawer extends StatelessWidget {
                         Icon(
                           Icons.currency_exchange,
                           color: AppColors.appColor,
-                          size: 22.0.sp,
+                          size: 18.0.sp,
                         ),
                         SizedBox(
                           width: 7.0.w,
                         ),
                         Custom_Text(
                           text: "Change Currency",
-                          fontSize: 18.sp,
+                          fontSize: 12.sp,
                           color: Colors.black,
                         ),
                       ],
@@ -128,14 +128,14 @@ class Custom_Drawer extends StatelessWidget {
                         Icon(
                           Icons.home,
                           color: AppColors.appColor,
-                          size: 22.0.sp,
+                          size: 18.0.sp,
                         ),
                         SizedBox(
                           width: 7.0.w,
                         ),
                         Custom_Text(
                           text: "Home",
-                          fontSize: 18.sp,
+                          fontSize: 12.sp,
                           color: Colors.black,
                         ),
                       ],
@@ -153,14 +153,14 @@ class Custom_Drawer extends StatelessWidget {
                         Icon(
                           Icons.info,
                           color: AppColors.appColor,
-                          size: 22.sp,
+                          size: 18.sp,
                         ),
                         SizedBox(
                           width: 7.w,
                         ),
                         Custom_Text(
                           text: "About",
-                          fontSize: 18.0.sp,
+                          fontSize: 12.0.sp,
                           color: Colors.black,
                         )
                       ],
@@ -198,14 +198,14 @@ class Custom_Drawer extends StatelessWidget {
                         Icon(
                           Icons.contact_support,
                           color: AppColors.appColor,
-                          size: 22.sp,
+                          size: 18.sp,
                         ),
                         SizedBox(
                           width: 7.w,
                         ),
                         Custom_Text(
                           text: "Contact Us",
-                          fontSize: 18.0.sp,
+                          fontSize: 12.0.sp,
                           color: Colors.black,
                         ),
                       ],

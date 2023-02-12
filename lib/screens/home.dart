@@ -81,7 +81,7 @@ class _Pree_BillState extends State<Pree_Bill> {
     item_Total.text = provider.sumTotal.toStringAsFixed(2);
 
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarIconBrightness: Brightness.dark,
+      //statusBarIconBrightness: Brightness.dark,
       statusBarColor: Colors.white,
     )); //statusbar color change
 
@@ -257,7 +257,7 @@ class _Pree_BillState extends State<Pree_Bill> {
                           boxShadow: [
                             BoxShadow(
                                 color: Color(0xFF304FFE).withOpacity(0.1),
-                                spreadRadius: 72.5,
+                                spreadRadius: 50.5,
                                 blurRadius: 10.0,
                                 offset: Offset(3.0, 3.0)),]
                         ),

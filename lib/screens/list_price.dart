@@ -259,7 +259,7 @@ class _Price_ListState extends State<Price_List> {
                                           color: Colors.white,
                                         ),
                                         child: IconButton(
-                                            icon: Icon(Icons.delete_forever_outlined,
+                                            icon: Icon(Icons.delete,
                                                 size: 15.sp,
                                                 color:
                                                 Color(0xffFF0000)),

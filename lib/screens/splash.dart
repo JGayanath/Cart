@@ -26,6 +26,7 @@ class _Splash_ScreenState extends State<Splash_Screen> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarIconBrightness: Brightness.dark,
       statusBarColor: AppColors.appColor,
     ));
 
@@ -37,19 +38,19 @@ class _Splash_ScreenState extends State<Splash_Screen> {
           children: [
             Center(
               child: Container(
-                width: 60.w,
+                width: 75.w,
                 height: 60.h,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: Color(0xffFFFFFF).withOpacity(0.9),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Color(0xffFFFFFF).withOpacity(0.7),
-                        spreadRadius: 60.sp,
-                        blurRadius: 10.0,
-                        offset: Offset(3.0, 3.0)),
-                  ],
+                  // boxShadow: [
+                  //   BoxShadow(
+                  //       color: Color(0xffFFFFFF).withOpacity(0.6),
+                  //       spreadRadius: 10.sp,
+                  //       blurRadius: 10.0,
+                  //       offset: Offset(3.0, 3.0)),
+                  // ],
                 ),
                 child: FadeInRight(
                   child: Image.asset(Assets_Image.cartProfile),
@@ -61,7 +62,7 @@ class _Splash_ScreenState extends State<Splash_Screen> {
               duration: Duration(seconds: 3),
               child: Text(
                 "Cart",
-                style: TextStyle(fontSize: 35.sp, color: Colors.white),
+                style: TextStyle(fontSize: 35.sp, color: Colors.white,fontWeight: FontWeight.bold),
               ),
             ),
           ],
