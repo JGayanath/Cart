@@ -32,7 +32,7 @@ class Custom_Drawer extends StatelessWidget {
           ],
           border: Border(
               right: BorderSide(
-            color: Colors.white,
+            color: AppColors.whiteColor,
           ))),
       child: Stack(
         children: [
@@ -64,15 +64,16 @@ class Custom_Drawer extends StatelessWidget {
                   child: Row(
                     children: [
                       Container(
+                          padding: EdgeInsets.all(10.sp),
                           width: 30.w,
                           height: 30.h,
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: Color(0xffFFFFFF).withOpacity(0.9),
+                            color: AppColors.whiteColor.withOpacity(0.9),
                             boxShadow: [
                               BoxShadow(
-                                  color: Color(0xffFFFFFF).withOpacity(0.8),
+                                  color: AppColors.whiteColor.withOpacity(0.8),
                                   spreadRadius: 8.5,
                                   blurRadius: 10.0,
                                   offset: Offset(3.0, 3.0)),
@@ -86,7 +87,7 @@ class Custom_Drawer extends StatelessWidget {
                           text: "Cart",
                           fontSize: 20.0.sp,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white)
+                          color: AppColors.whiteColor,)
                     ],
                   ),
                 ),
@@ -110,7 +111,7 @@ class Custom_Drawer extends StatelessWidget {
                         Custom_Text(
                           text: "Change Currency",
                           fontSize: 12.sp,
-                          color: Colors.black,
+                          color: AppColors.blackColor,
                         ),
                       ],
                     ),
@@ -136,7 +137,7 @@ class Custom_Drawer extends StatelessWidget {
                         Custom_Text(
                           text: "Home",
                           fontSize: 12.sp,
-                          color: Colors.black,
+                          color: AppColors.blackColor,
                         ),
                       ],
                     ),
@@ -161,14 +162,14 @@ class Custom_Drawer extends StatelessWidget {
                         Custom_Text(
                           text: "About",
                           fontSize: 12.0.sp,
-                          color: Colors.black,
+                          color: AppColors.blackColor,
                         )
                       ],
                     ),
                     onTap: () {
                       AwesomeDialog(
                         btnOkText: "Ok",
-                        btnOkColor: Colors.indigoAccent[700],
+                        btnOkColor: AppColors.appColor,
                         context: context,
                         animType: AnimType.scale,
                         dialogType: DialogType.info,
@@ -206,14 +207,14 @@ class Custom_Drawer extends StatelessWidget {
                         Custom_Text(
                           text: "Contact Us",
                           fontSize: 12.0.sp,
-                          color: Colors.black,
+                          color: AppColors.blackColor,
                         ),
                       ],
                     ),
                     onTap: () {
                       AwesomeDialog(
                         btnOkText: "Ok",
-                        btnOkColor: Colors.indigoAccent[700],
+                        btnOkColor: AppColors.appColor,
                         context: context,
                         animType: AnimType.scale,
                         dialogType: DialogType.info,

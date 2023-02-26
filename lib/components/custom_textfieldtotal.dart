@@ -1,24 +1,28 @@
 
 import 'package:flutter/material.dart';
+import 'package:pree_bill/model/provider_model/cart_provider.dart';
+import 'package:pree_bill/utils/app_colors.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 class Custom_TextFieldTotal extends StatelessWidget {
-  const Custom_TextFieldTotal({
-    Key? key,
-    required this.item_Total,
+   Custom_TextFieldTotal({
+    Key? key, required this.controller,
   }) : super(key: key);
 
-  final TextEditingController item_Total;
+
+  TextEditingController controller;
+
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       readOnly: true,
-      controller: item_Total,
+      controller: controller,
       textAlign: TextAlign.center,
       style: TextStyle(
         fontSize: 22.0.sp,
-        color: Colors.black,
+        color: AppColors.appColor,
           fontWeight: FontWeight
               .bold
       ),
@@ -26,11 +30,11 @@ class Custom_TextFieldTotal extends StatelessWidget {
       decoration: InputDecoration(
         focusedBorder: const OutlineInputBorder(
           borderSide: const BorderSide(
-              color: Colors.white),
+              color: AppColors.whiteColor,),
         ),
         enabledBorder: UnderlineInputBorder(
           borderSide: const BorderSide(
-              color: Colors.white),
+              color: AppColors.whiteColor,),
           borderRadius:
           BorderRadius.circular(25.7.w),//------------------------------------------------------------------------------------------------
         ),

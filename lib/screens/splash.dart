@@ -38,12 +38,13 @@ class _Splash_ScreenState extends State<Splash_Screen> {
           children: [
             Center(
               child: Container(
+                padding: EdgeInsets.all(10.w),
                 width: 75.w,
                 height: 60.h,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Color(0xffFFFFFF).withOpacity(0.9),
+                  color: AppColors.whiteColor.withOpacity(0.9),
                   // boxShadow: [
                   //   BoxShadow(
                   //       color: Color(0xffFFFFFF).withOpacity(0.6),
@@ -58,12 +59,9 @@ class _Splash_ScreenState extends State<Splash_Screen> {
                 ),
               ),
             ),
-            FadeInDown(
-              duration: Duration(seconds: 3),
-              child: Text(
-                "Cart",
-                style: TextStyle(fontSize: 35.sp, color: Colors.white,fontWeight: FontWeight.bold),
-              ),
+            Text(
+              "Cart",
+              style: TextStyle(fontSize: 35.sp, color: Colors.white,fontWeight: FontWeight.bold),
             ),
           ],
         ),

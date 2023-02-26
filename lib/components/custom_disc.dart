@@ -6,21 +6,23 @@ import 'package:pree_bill/utils/app_colors.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
-class Custom_TextFieldPrice extends StatelessWidget {
-  const Custom_TextFieldPrice({
+class Custom_Disc extends StatefulWidget {
+  const Custom_Disc({
     Key? key,
-    required this.function
   }) : super(key: key);
+  @override
+  State<Custom_Disc> createState() => _Custom_DiscState();
+}
 
-  final Function() function;
+class _Custom_DiscState extends State<Custom_Disc> {
   @override
   Widget build(BuildContext context) {
     return TextField(
       inputFormatters: [
         NumberTextInputFormatter(
           integerDigits: 10,
-          decimalDigits: 2,
-          maxValue: '1000000000.00',
+          decimalDigits: 1,
+          maxValue: '1000000000.0',
           decimalSeparator: '.',
           allowNegative: false,
           overrideDecimalPoint: true,
@@ -28,13 +30,12 @@ class Custom_TextFieldPrice extends StatelessWidget {
           insertDecimalDigits: true,
         )
       ],
-      controller: Provider.of<CartModelProvider>(context,listen: false).priceController,
-      onChanged: (_) => function(),
+      controller: Provider.of<CartModelProvider>(context,listen: false).discountController,
       textAlign: TextAlign.center,
       style: TextStyle(
         fontSize: 15.sp,
       ),
-      keyboardType: TextInputType.number,
+      keyboardType: TextInputType.datetime,
       cursorColor: AppColors.appColor,
       decoration: InputDecoration(
         focusedBorder: const OutlineInputBorder(
@@ -55,7 +56,7 @@ class Custom_TextFieldPrice extends StatelessWidget {
         //label style//Icon(null),
         floatingLabelBehavior:
         FloatingLabelBehavior.always,
-        hintText: "Price",
+        hintText: "Discount %",
       ),
     );
   }

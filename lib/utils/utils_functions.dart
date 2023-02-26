@@ -16,10 +16,10 @@ class Utils_Functions {
   static Future<void> showMyDialog(BuildContext context, String btnOkText,String btnCancelText,
       String text, DialogType dialogType, Function() btnOkOnpress,Function() btnCancelOnpress) async {
     return AwesomeDialog(
-      btnCancelColor: Colors.redAccent[700],
+      btnCancelColor: AppColors.redColor,
       btnOkText: btnOkText,
       btnCancelText: btnCancelText,
-      btnOkColor: Colors.indigoAccent[700],
+      btnOkColor: AppColors.appColor,
       context: context,
       animType: AnimType.scale,
       dialogType: dialogType,
@@ -48,7 +48,7 @@ class Utils_Functions {
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 1,
         backgroundColor: AppColors.appColor,
-        textColor: Colors.white,
+        textColor: AppColors.whiteColor,
         fontSize: 12.0.sp);
   }
 }
