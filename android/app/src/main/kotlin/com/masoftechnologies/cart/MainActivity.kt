@@ -1,4 +1,4 @@
-package com.pree_bill.jsoftapp.pree_bill
+package com.masoftechnologies.cart
 
 import io.flutter.embedding.android.FlutterActivity
 

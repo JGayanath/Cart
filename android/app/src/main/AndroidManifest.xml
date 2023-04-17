@@ -1,6 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.pree_bill.jsoftapp.pree_bill">
-    <uses-permission android:name="android.permission.CAMERA" />
+    package="com.masoftechnologies.cart">
    <application
         android:label="Cart"
         android:name="${applicationName}"

@@ -9,11 +9,13 @@ class Custom_FloatingButton extends StatefulWidget {
   Custom_FloatingButton({
     required this.icon,
     required this.onPressed(),
+    required this.heroTag,
     Key? key,
   }) : super(key: key);
 
   final Icon icon;
   final Function() onPressed;
+  final String heroTag;
 
   @override
   State<Custom_FloatingButton> createState() => _Custom_FloatingButtonState();
@@ -45,6 +47,7 @@ class _Custom_FloatingButtonState extends State<Custom_FloatingButton> {
             timer.cancel();
           },
           child: FloatingActionButton(
+            heroTag: widget.heroTag,
             onPressed: () {
              widget.onPressed();
             },

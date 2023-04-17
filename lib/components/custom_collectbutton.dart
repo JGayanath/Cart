@@ -16,15 +16,19 @@ class Custom_CollectButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return  GestureDetector(
       onTap: onPressed,
-      child: Container(
-        height: 8.h,
-        decoration: BoxDecoration(
-          color: AppColors.appColor,
-          borderRadius: BorderRadius.circular(50.0.w),
-        ),
-        child: Align(
-          alignment: Alignment.center,
-            child: Text("Add to cart",style: TextStyle(fontSize: 20.0.sp,color: AppColors.whiteColor,fontWeight: FontWeight.bold),)),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 1,
+            child: Container(
+              decoration: BoxDecoration(
+                color: AppColors.appColor,
+                borderRadius: BorderRadius.circular(25.sp),
+              ),
+              child: Center(child: Text("Add to cart",style: TextStyle(fontSize: 13.0.sp,color: AppColors.whiteColor),)),
+            ),
+          ),
+        ],
       ),
     );
   }

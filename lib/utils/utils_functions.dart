@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -41,6 +43,7 @@ class Utils_Functions {
       },
     ).show();
   }
+  // toast msg
   static void toast(String msg){
     Fluttertoast.showToast(
         msg: msg,
@@ -50,5 +53,10 @@ class Utils_Functions {
         backgroundColor: AppColors.appColor,
         textColor: AppColors.whiteColor,
         fontSize: 12.0.sp);
+  }
+
+  // exit app
+  static void exitApp(){
+    exit(0);
   }
 }

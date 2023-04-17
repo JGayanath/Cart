@@ -1,11 +1,11 @@
-import 'dart:ui';
 
-import 'package:animate_do/animate_do.dart';
+import 'dart:ui';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:lottie/lottie.dart';
 import 'package:pree_bill/components/custom_text.dart';
 import 'package:pree_bill/utils/app_colors.dart';
-import 'package:pree_bill/utils/assets_image.dart';
 import 'package:pree_bill/utils/utils_functions.dart';
 import 'package:sizer/sizer.dart';
 
@@ -19,6 +19,11 @@ class Custom_Drawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: AppColors.appColor, // set status bar color
+      ),
+    );
     return Container(
       width: 80.w,
       height: double.infinity,
@@ -30,215 +35,281 @@ class Custom_Drawer extends StatelessWidget {
               blurRadius: 8.0.w,
             )
           ],
-          border: Border(
-              right: BorderSide(
-            color: AppColors.whiteColor,
-          ))),
-      child: Stack(
+      ),
+      child: Column(
         children: [
-          SizedBox(
-            child: ClipRRect(
-              child: BackdropFilter(
-                filter: ImageFilter.blur(
-                  sigmaX: 4.0,
-                  sigmaY: 4.0,
-                ),
-                child: Container(
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(colors: [
-                    AppColors.appColor.withOpacity(0.0),
-                    Colors.white.withOpacity(0.2),
-                  ])),
-                ),
+          ClipRRect(
+            child: BackdropFilter(
+              filter: ImageFilter.blur(
+                sigmaX: 4.0,
+                sigmaY: 4.0,
+              ),
+              child: Container(
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        colors:[
+                  AppColors.appColor.withOpacity(0.0),
+                  Colors.white.withOpacity(0.2),
+                ])),
               ),
             ),
           ),
-          Column(
-            children: [
-              Container(
-                height: 30.h,
-                child: DrawerHeader(
-                  decoration: BoxDecoration(
-                    color: AppColors.appColor,
-                  ),
-                  child: Row(
-                    children: [
-                      Container(
-                          padding: EdgeInsets.all(10.sp),
-                          width: 30.w,
-                          height: 30.h,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: AppColors.whiteColor.withOpacity(0.9),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: AppColors.whiteColor.withOpacity(0.8),
-                                  spreadRadius: 8.5,
-                                  blurRadius: 10.0,
-                                  offset: Offset(3.0, 3.0)),
-                            ],
-                          ),
-                          child: Image.asset(Assets_Image.cartProfile)),
-                      SizedBox(
-                        width: 10.w,
-                      ),
-                      Custom_Text(
-                          text: "Cart",
-                          fontSize: 20.0.sp,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.whiteColor,)
-                    ],
-                  ),
-                ),
+          Expanded(
+            flex: 8,
+            child: DrawerHeader(
+              padding : EdgeInsets.symmetric(vertical: 15.sp , horizontal: 10.sp ),
+              decoration: BoxDecoration(
+                color: AppColors.appColor,
               ),
-              Column(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(
-                    height: 4.0.h,
+                  Expanded(
+                    flex:5,
+                    child: Container(
+                        padding: EdgeInsets.all(10.sp),
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: AppColors.whiteColor.withOpacity(0.9),
+                          boxShadow: [
+                            BoxShadow(
+                                color: AppColors.whiteColor.withOpacity(0.8),
+                                spreadRadius: 8.5,
+                                blurRadius: 10.0,
+                                offset: Offset(3.0, 3.0)),
+                          ],
+                        ),
+                        child: Lottie.asset(
+                          "assets/images/shop.json",fit: BoxFit.fill,)),
                   ),
-                  ListTile(
-                    title: Row(
-                      children: [
-                        Icon(
-                          Icons.currency_exchange,
-                          color: AppColors.appColor,
-                          size: 18.0.sp,
-                        ),
-                        SizedBox(
-                          width: 7.0.w,
-                        ),
-                        Custom_Text(
-                          text: "Change Currency",
-                          fontSize: 12.sp,
-                          color: AppColors.blackColor,
-                        ),
-                      ],
+                  Expanded(
+                    flex: 1,
+                    child: SizedBox(
                     ),
-                    onTap: () {
-                      currency_select();
-                      Utils_Functions.navigatePop(context);
-                    },
                   ),
-                  SizedBox(
-                    height: 5.0.h,
-                  ),
-                  ListTile(
-                    title: Row(
-                      children: [
-                        Icon(
-                          Icons.home,
-                          color: AppColors.appColor,
-                          size: 18.0.sp,
-                        ),
-                        SizedBox(
-                          width: 7.0.w,
-                        ),
-                        Custom_Text(
-                          text: "Home",
-                          fontSize: 12.sp,
-                          color: AppColors.blackColor,
-                        ),
-                      ],
-                    ),
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                  SizedBox(
-                    height: 5.0.h,
-                  ),
-                  ListTile(
-                    title: Row(
-                      children: [
-                        Icon(
-                          Icons.info,
-                          color: AppColors.appColor,
-                          size: 18.sp,
-                        ),
-                        SizedBox(
-                          width: 7.w,
-                        ),
-                        Custom_Text(
-                          text: "About",
-                          fontSize: 12.0.sp,
-                          color: AppColors.blackColor,
-                        )
-                      ],
-                    ),
-                    onTap: () {
-                      AwesomeDialog(
-                        btnOkText: "Ok",
-                        btnOkColor: AppColors.appColor,
-                        context: context,
-                        animType: AnimType.scale,
-                        dialogType: DialogType.info,
-                        body: Container(
-                          padding: EdgeInsets.all(10.sp),
-                          child: Text(
-                            "This app is useful for bill calculation while purchasing goods.",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 12.sp,
-                                fontStyle: FontStyle.italic,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        btnOkOnPress: () {
-                          Utils_Functions.navigatePop(context);
-                        },
-                      ).show();
-                    },
-                  ),
-                  SizedBox(
-                    height: 5.0.h,
-                  ),
-                  ListTile(
-                    title: Row(
-                      children: [
-                        Icon(
-                          Icons.contact_support,
-                          color: AppColors.appColor,
-                          size: 18.sp,
-                        ),
-                        SizedBox(
-                          width: 7.w,
-                        ),
-                        Custom_Text(
-                          text: "Contact Us",
-                          fontSize: 12.0.sp,
-                          color: AppColors.blackColor,
-                        ),
-                      ],
-                    ),
-                    onTap: () {
-                      AwesomeDialog(
-                        btnOkText: "Ok",
-                        btnOkColor: AppColors.appColor,
-                        context: context,
-                        animType: AnimType.scale,
-                        dialogType: DialogType.info,
-                        body: Container(
-                          padding: EdgeInsets.all(10),
-                          child: Text(
-                            "janakagayanath@gmail.com",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 12.sp,
-                                fontStyle: FontStyle.italic,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        btnOkOnPress: () {
-                          Utils_Functions.navigatePop(context);
-                        },
-                      ).show();
-                    },
-                  ),
+                  Expanded(
+                    flex: 3,
+                    child: Custom_Text(
+                        text: "Cart",
+                        fontSize: 20.0.sp,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.whiteColor,),
+                  )
                 ],
               ),
-            ],
+            ),
           ),
+          Expanded(
+            flex: 1,
+            child: SizedBox(
+            ),
+          ),
+          Expanded(
+            flex: 14,
+            child: Column(
+              children: [
+              Expanded(
+                flex: 1,
+                child: ListTile(
+                  title: Row(
+                    children: [
+                      Icon(
+                        Icons.currency_exchange,
+                        color: AppColors.appColor,
+                        size: 18.0.sp,
+                      ),
+                      SizedBox(
+                        width: 7.w,
+                      ),
+                      Custom_Text(
+                        text: "Change Currency",
+                        fontSize: 12.sp,
+                        color: AppColors.blackColor,
+                      ),
+                    ],
+                  ),
+                  onTap: () {
+                    currency_select();
+                    Utils_Functions.navigatePop(context);
+                  },
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: SizedBox(
+                ),
+              ),
+                Expanded(
+                  flex: 1,
+                child: ListTile(
+                  title: Row(
+                    children: [
+                      Icon(
+                        Icons.info,
+                        color: AppColors.appColor,
+                        size: 18.sp,
+                      ),
+                      SizedBox(
+                        width: 7.w,
+                      ),
+                      Custom_Text(
+                        text: "About",
+                        fontSize: 12.0.sp,
+                        color: AppColors.blackColor,
+                      )
+                    ],
+                  ),
+                  onTap: () {
+                    AwesomeDialog(
+                      btnOkText: "Ok",
+                      btnOkColor: AppColors.appColor,
+                      context: context,
+                      animType: AnimType.scale,
+                      dialogType: DialogType.info,
+                      body: Container(
+                        padding: EdgeInsets.all(10.sp),
+                        child: Text(
+                          "This app is useful for bill calculation while purchasing goods.",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 12.sp,
+                            fontStyle: FontStyle.italic,),
+                        ),
+                      ),
+                      btnOkOnPress: () {
+                        Utils_Functions.navigatePop(context);
+                      },
+                    ).show();
+                  },
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: SizedBox(
+                ),
+              ),
+                Expanded(
+                  flex: 1,
+                child: ListTile(
+                  title: Row(
+                    children: [
+                      Icon(
+                        Icons.contact_support,
+                        color: AppColors.appColor,
+                        size: 18.sp,
+                      ),
+                      SizedBox(
+                        width: 7.w,
+                      ),
+                      Custom_Text(
+                        text: "Contact Us",
+                        fontSize: 12.0.sp,
+                        color: AppColors.blackColor,
+                      ),
+                    ],
+                  ),
+                  onTap: () {
+                    AwesomeDialog(
+                      btnOkText: "Ok",
+                      btnOkColor: AppColors.appColor,
+                      context: context,
+                      animType: AnimType.scale,
+                      dialogType: DialogType.info,
+                      body: Container(
+                        padding: EdgeInsets.all(10),
+                        child: Text(
+                          "janakagayanath@gmail.com",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 12.sp,
+                            fontStyle: FontStyle.italic,),
+                        ),
+                      ),
+                      btnOkOnPress: () {
+                        Utils_Functions.navigatePop(context);
+                      },
+                    ).show();
+                  },
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: SizedBox(
+                ),
+              ),
+                Expanded(
+                  flex: 1,
+                child: ListTile(
+                  title: Row(
+                    children: [
+                      Icon(
+                        Icons.home,
+                        color: AppColors.appColor,
+                        size: 18.0.sp,
+                      ),
+                      SizedBox(
+                        width: 7.0.w,
+                      ),
+                      Custom_Text(
+                        text: "Home",
+                        fontSize: 12.sp,
+                        color: AppColors.blackColor,
+                      ),
+                    ],
+                  ),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
+
+              Expanded(
+                flex: 1,
+                child: SizedBox(
+                ),
+              ),
+                Expanded(
+                  flex: 1,
+                child: ListTile(
+                  title: Row(
+                    children: [
+                      Icon(
+                        Icons.exit_to_app,
+                        color: AppColors.appColor,
+                        size: 18.sp,
+                      ),
+                      SizedBox(
+                        width: 7.w,
+                      ),
+                      Custom_Text(
+                        text: "Exit",
+                        fontSize: 12.0.sp,
+                        color: AppColors.blackColor,
+                      ),
+                    ],
+                  ),
+                  onTap: () {
+                    Utils_Functions.showMyDialog(
+                        context,
+                        "Exit",
+                        "Cancel",
+                        "Do you want to close this app?",
+                        DialogType.warning,
+                            () {
+                          Utils_Functions.exitApp();
+                        },
+                            () => Utils_Functions.navigatePop(context));
+                  },
+                ),
+              ),
+                Expanded(
+                  flex: 1,
+                  child: SizedBox(
+                  ),
+                ),
+            ],
+          ),)
         ],
       ),
     );
