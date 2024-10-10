@@ -35,7 +35,7 @@ dependencies:
   number_text_input_formatter: ^1.0.0+1
   provider: ^6.0.3
   js: ^0.6.2
-  awesome_dialog: ^3.0.2
+  awesome_dialog: ^3.2.1
   sizer: ^2.0.15
   badges: ^3.0.2
   sqflite: ^2.0.0+3
